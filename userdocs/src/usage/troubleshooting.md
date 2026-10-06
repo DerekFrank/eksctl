@@ -5,6 +5,15 @@
 You can use the `--cfn-disable-rollback` flag to stop Cloudformation from rolling
 back failed stacks to make debugging easier.
 
+## Termination protection on CloudFormation stacks
+
+eksctl enables termination protection on every CloudFormation stack it creates.
+`eksctl delete` turns it off before deleting a stack, which requires the
+`cloudformation:UpdateTerminationProtection` permission. If the credentials
+used to delete clusters do not have that permission (for example, in CI),
+pass `--cfn-disable-termination-protection` when creating clusters and
+nodegroups so the stacks are created without termination protection.
+
 ## subnet ID "subnet-11111111" is not the same as "subnet-22222222"
 
 Given a config file specifying subnets for a VPC like the following:
